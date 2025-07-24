@@ -66,4 +66,19 @@ public class GameManager : MonoBehaviour
 
         return currentGuess;
     }
+
+    public void ProcessPlayerGuess(PegColor[] playerGuess)
+    {
+        if (_guessHistory.Count >= _maxGuesses)
+        {
+            Debug.Log("The end! You lost :()");
+        }
+
+        Guess result = CheckGuess(playerGuess);
+
+        if (result.BlackPegs == _codeLength)
+        {
+            Debug.Log("Congrats, you won!");
+        }
+    }
 }
