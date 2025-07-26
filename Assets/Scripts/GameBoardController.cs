@@ -8,7 +8,7 @@ public class GameBoardController : MonoBehaviour
     [SerializeField] private int _numberOfRows = 10;
     [SerializeField] private float _rowSpacing = 1.2f;
 
-    private List<GuessRowController> _rowControllers = new List<GuessRowController>();
+    private List<GuessRowController> _rowControllers = new();
     private int _currentRowIndex = 0;
 
     private void OnEnable()

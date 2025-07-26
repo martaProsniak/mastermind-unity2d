@@ -8,5 +8,4 @@ public enum PegColor
     Pink,
     Purple,
     LightBlue
-
 }

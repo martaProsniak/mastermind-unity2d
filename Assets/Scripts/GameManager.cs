@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     // Game State
     private List<PegColor> _secretCode;
-    private List<Guess> _guessHistory = new List<Guess>();
+    private List<Guess> _guessHistory = new();
 
     public static event Action<Guess> OnGuessProcessed;
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private void GenerateCode()
     {
         _secretCode = new List<PegColor>();
-        var allColors = System.Enum.GetValues(typeof(PegColor)).Cast<PegColor>().ToList();
+        var allColors = Enum.GetValues(typeof(PegColor)).Cast<PegColor>().ToList();
         var random = new System.Random();
 
         for (int i = 0; i < _codeLength; i++)
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Guess currentGuess = new Guess(playerGuess, blackPegs, whitePegs);
+        Guess currentGuess = new(playerGuess, blackPegs, whitePegs);
         _guessHistory.Add(currentGuess);
 
         return currentGuess;

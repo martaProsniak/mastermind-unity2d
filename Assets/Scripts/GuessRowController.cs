@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GuessRowController : MonoBehaviour
@@ -6,9 +8,38 @@ public class GuessRowController : MonoBehaviour
     [SerializeField] private SpriteRenderer[] _pegRenderers;
     [SerializeField] private SpriteRenderer[] _hintPegRenderers;
 
-    public void SetPegs(PegColor[] colors)
-    {
+    private PegColor[] _currentPegColors;
 
+    private Dictionary<PegColor, Color> _colorMap;
+
+    private void Awake()
+    {
+        _currentPegColors = new PegColor[4];
+        SetColorMap();
+        SetPegs();
+    }
+
+    private void SetPegs()
+    {
+        for (int i = 0; i < _pegRenderers.Length; i++)
+        {
+            PegController peg = _pegRenderers[i].GetComponent<PegController>();
+            if (peg != null)
+            {
+                peg.Initialize(i, this);
+            }
+        }
+    }
+
+    public void OnPegClicked(int pegIndex)
+    {
+        PegColor currentColor = _currentPegColors[pegIndex];
+
+        int nextColorIndex = ((int)currentColor + 1) % Enum.GetValues(typeof(PegColor)).Length;
+        PegColor newColor = (PegColor)nextColorIndex;
+
+        _currentPegColors[pegIndex] = newColor;
+        _pegRenderers[pegIndex].color = _colorMap[newColor];
     }
 
     public void DisplayHints(int blackPegs, int whitePegs)
@@ -22,5 +53,20 @@ public class GuessRowController : MonoBehaviour
         {
             _hintPegRenderers[i].color = Color.white;
         }
+    }
+
+    private void SetColorMap()
+    {
+        _colorMap = new Dictionary<PegColor, Color>
+        {
+            { PegColor.Red, Color.red },
+            { PegColor.Green, Color.green },
+            { PegColor.Blue, Color.blue },
+            { PegColor.Yellow, Color.yellow },
+            { PegColor.Purple, new Color(0.5f, 0, 0.5f) },
+            { PegColor.Orange, new Color(1f, 0.5f, 0) },
+            { PegColor.Pink, Color.magenta },
+            { PegColor.LightBlue, Color.cyan } 
+        };
     }
 }
