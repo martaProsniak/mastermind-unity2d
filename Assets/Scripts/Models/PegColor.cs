@@ -4,8 +4,8 @@ public enum PegColor
     Green,
     Blue,
     Yellow,
+    Purple,
     Orange,
     Pink,
-    Purple,
     LightBlue
 }

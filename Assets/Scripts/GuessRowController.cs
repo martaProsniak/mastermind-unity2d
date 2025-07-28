@@ -33,13 +33,10 @@ public class GuessRowController : MonoBehaviour
 
     public void OnPegClicked(int pegIndex)
     {
-        PegColor currentColor = _currentPegColors[pegIndex];
+        PegColor selectedColor = ColorPaletteController.CurrentColor;
 
-        int nextColorIndex = ((int)currentColor + 1) % Enum.GetValues(typeof(PegColor)).Length;
-        PegColor newColor = (PegColor)nextColorIndex;
-
-        _currentPegColors[pegIndex] = newColor;
-        _pegRenderers[pegIndex].color = _colorMap[newColor];
+        _currentPegColors[pegIndex] = selectedColor;
+        _pegRenderers[pegIndex].color = _colorMap[selectedColor];
     }
 
     public void DisplayHints(int blackPegs, int whitePegs)
